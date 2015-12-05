@@ -10,13 +10,11 @@
 
 @interface GCSimpleSectionController ()
 
-@property (nonatomic, readonly) NSArray* colors;
+@property (nonatomic) NSArray* colors;
 
 @end
 
 @implementation GCSimpleSectionController
-
-@synthesize colors;
 
 #pragma mark -
 #pragma mark Subclass
@@ -48,14 +46,14 @@
 #pragma mark Getters
 
 - (NSArray *)colors {
-    if (colors == nil) {
-        colors = [[NSArray alloc] initWithObjects:@"Blue", @"Green", @"Red", @"Yellow", nil];
+    if (_colors == nil) {
+        _colors = [[NSArray alloc] initWithObjects:@"Blue", @"Green", @"Red", @"Yellow", nil];
     }
-    return colors;
+    return _colors;
 }
 
 - (void)dealloc {
-    [colors release];
+    [_colors release];
     
     [super dealloc];
 }

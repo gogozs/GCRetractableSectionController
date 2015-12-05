@@ -20,8 +20,6 @@
 
 @implementation RootViewController
 
-@synthesize retractableControllers;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     

@@ -18,10 +18,6 @@
 
 @implementation GCRetractableSectionController
 
-@synthesize useOnlyWhiteImages, titleTextColor, titleAlternativeTextColor;
-@synthesize viewController;
-@synthesize open, rowAnimation;
-
 #pragma mark -
 #pragma mark Initialisation
 

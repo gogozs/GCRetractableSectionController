@@ -10,13 +10,11 @@
 
 @interface GCCustomSectionController ()
 
-@property (nonatomic, readonly) NSArray* content;
+@property (nonatomic) NSArray* content;
 
 @end
 
 @implementation GCCustomSectionController
-
-@synthesize content;
 
 #pragma mark -
 #pragma mark Simple subclass
@@ -79,14 +77,14 @@
 #pragma mark Getters 
 
 - (NSArray *)content {
-    if (content == nil) {
-        content = [[NSArray alloc] initWithObjects:@"You can do", @"WHATEVER", @"you want!", nil];
+    if (_content == nil) {
+        _content = [[NSArray alloc] initWithObjects:@"You can do", @"WHATEVER", @"you want!", nil];
     }
-    return content;
+    return _content;
 }
 
 - (void)dealloc {
-    [content release];
+    [_content release];
     
     [super dealloc];
 }
