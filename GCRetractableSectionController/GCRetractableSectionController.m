@@ -18,9 +18,7 @@
 
 @implementation GCRetractableSectionController
 
-#pragma mark -
-#pragma mark Initialisation
-
+#pragma mark - Initialisation
 - (id) initWithViewController:(UIViewController*) givenViewController {
 	if ((self = [super init])) {
         if (![givenViewController respondsToSelector:@selector(tableView)]) {
@@ -33,17 +31,83 @@
 		self.open = NO;
         self.useOnlyWhiteImages = NO;
         self.rowAnimation = UITableViewRowAnimationTop;
+        self.contentCellRetractable = NO;
 	}
 	return self;
 }
 
-#pragma mark -
-#pragma mark Getters
-
+#pragma mark - Accessors
 - (UITableView*) tableView {
 	return [self.viewController performSelector:@selector(tableView)];
 }
 
+#pragma mark - UITableViewDataSource
+
+- (UITableViewCell *) cellForRow:(NSUInteger)row {
+	UITableViewCell* cell = nil;
+	
+	if (row == 0) cell = [self titleCell];
+	else cell = [self contentCellForRow:row - 1];
+	
+	return cell;
+}
+
+
+#pragma mark - Private Methods
+- (void) setAccessoryViewOnCell:(UITableViewCell*) cell {
+	NSString* path = nil;
+	if (self.open) {
+		path = @"UpAccessory";
+        if (self.titleAlternativeTextColor == nil) cell.textLabel.textColor =  [UIColor colorWithRed:0.191 green:0.264 blue:0.446 alpha:1.000];
+        else cell.textLabel.textColor = self.titleAlternativeTextColor;
+	}	
+	else {
+		path = @"DownAccessory";
+		cell.textLabel.textColor = (self.titleTextColor == nil ? [UIColor blackColor] : self.titleTextColor);
+	}
+	
+	UIImage* accessoryImage = [UIImage imageNamed:path];
+	UIImage* whiteAccessoryImage = [UIImage imageNamed:[[path stringByDeletingPathExtension] stringByAppendingString:@"White"]];
+	
+	UIImageView* imageView;
+	if (cell.accessoryView != nil) {
+		imageView = (UIImageView*) cell.accessoryView;
+		imageView.image = (self.useOnlyWhiteImages ? whiteAccessoryImage : accessoryImage);
+		imageView.highlightedImage = whiteAccessoryImage;
+    }
+	else {
+		imageView = [[UIImageView alloc] initWithImage:(self.useOnlyWhiteImages ? whiteAccessoryImage : accessoryImage)];
+		imageView.highlightedImage = whiteAccessoryImage;
+		cell.accessoryView = imageView;
+		[imageView release];
+	}
+}
+
+- (void)updateContentCell
+{
+    NSIndexPath* indexPath = [self.tableView indexPathForSelectedRow];
+	NSUInteger section = indexPath.section;
+	NSUInteger contentCount = self.contentNumberOfRow;
+	
+	[self.tableView beginUpdates];
+	
+	NSMutableArray* rowToInsert = [[NSMutableArray alloc] init];
+	for (NSUInteger i = 1; i < contentCount + 1; i++) {
+		NSIndexPath* indexPathToInsert = [NSIndexPath indexPathForRow:i inSection:section];
+		[rowToInsert addObject:indexPathToInsert];
+	}
+	
+	if (self.open) [self.tableView insertRowsAtIndexPaths:rowToInsert withRowAnimation:self.rowAnimation];
+	else [self.tableView deleteRowsAtIndexPaths:rowToInsert withRowAnimation:self.rowAnimation];
+	[rowToInsert release];
+	
+	[self.tableView endUpdates];
+	
+	if (self.open) [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
+	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - GCRetractableSectionDataSource
 - (NSUInteger) numberOfRow {
     return (self.open) ? self.contentNumberOfRow + 1 : 1;
 }
@@ -58,18 +122,6 @@
 
 - (NSString*) titleContentForRow:(NSUInteger) row {
 	return NSLocalizedString(@"No title",);
-}
-
-#pragma mark -
-#pragma mark Cells
-
-- (UITableViewCell *) cellForRow:(NSUInteger)row {
-	UITableViewCell* cell = nil;
-	
-	if (row == 0) cell = [self titleCell];
-	else cell = [self contentCellForRow:row - 1];
-	
-	return cell;
 }
 
 - (UITableViewCell *) titleCell {
@@ -110,38 +162,7 @@
 	return cell;
 }
 
-- (void) setAccessoryViewOnCell:(UITableViewCell*) cell {
-	NSString* path = nil;
-	if (self.open) {
-		path = @"UpAccessory";
-        if (self.titleAlternativeTextColor == nil) cell.textLabel.textColor =  [UIColor colorWithRed:0.191 green:0.264 blue:0.446 alpha:1.000];
-        else cell.textLabel.textColor = self.titleAlternativeTextColor;
-	}	
-	else {
-		path = @"DownAccessory";
-		cell.textLabel.textColor = (self.titleTextColor == nil ? [UIColor blackColor] : self.titleTextColor);
-	}
-	
-	UIImage* accessoryImage = [UIImage imageNamed:path];
-	UIImage* whiteAccessoryImage = [UIImage imageNamed:[[path stringByDeletingPathExtension] stringByAppendingString:@"White"]];
-	
-	UIImageView* imageView;
-	if (cell.accessoryView != nil) {
-		imageView = (UIImageView*) cell.accessoryView;
-		imageView.image = (self.useOnlyWhiteImages ? whiteAccessoryImage : accessoryImage);
-		imageView.highlightedImage = whiteAccessoryImage;
-    }
-	else {
-		imageView = [[UIImageView alloc] initWithImage:(self.useOnlyWhiteImages ? whiteAccessoryImage : accessoryImage)];
-		imageView.highlightedImage = whiteAccessoryImage;
-		cell.accessoryView = imageView;
-		[imageView release];
-	}
-}
-
-#pragma mark -
-#pragma mark Select Cell
-
+#pragma mark - GCRetractableSectionDataDelegate
 - (void) didSelectCellAtRow:(NSUInteger)row {
 	if (row == 0) [self didSelectTitleCell];
 	else [self didSelectContentCellAtRow:row - 1];
@@ -149,30 +170,22 @@
 
 - (void) didSelectTitleCell {
 	self.open = !self.open;
-	if (self.contentNumberOfRow != 0) [self setAccessoryViewOnCell:[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]]];
+    if (self.contentNumberOfRow != 0) {
+        [self setAccessoryViewOnCell:[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]]];
+    }
 	
-	NSIndexPath* indexPath = [self.tableView indexPathForSelectedRow];
-	NSUInteger section = indexPath.section;
-	NSUInteger contentCount = self.contentNumberOfRow;
-	
-	[self.tableView beginUpdates];
-	
-	NSMutableArray* rowToInsert = [[NSMutableArray alloc] init];
-	for (NSUInteger i = 1; i < contentCount + 1; i++) {
-		NSIndexPath* indexPathToInsert = [NSIndexPath indexPathForRow:i inSection:section];
-		[rowToInsert addObject:indexPathToInsert];
-	}
-	
-	if (self.open) [self.tableView insertRowsAtIndexPaths:rowToInsert withRowAnimation:self.rowAnimation];
-	else [self.tableView deleteRowsAtIndexPaths:rowToInsert withRowAnimation:self.rowAnimation];
-	[rowToInsert release];
-	
-	[self.tableView endUpdates];
-	
-	if (self.open) [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
-	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self updateContentCell];
 }
 
-- (void) didSelectContentCellAtRow:(NSUInteger)row {}
+- (void) didSelectContentCellAtRow:(NSUInteger)row {
+    if (self.isContentCellRetractable) {
+        self.open = !self.open;
+        [self setAccessoryViewOnCell:[self.tableView cellForRowAtIndexPath:
+                                      [NSIndexPath indexPathForRow:0 inSection: [self.tableView indexPathForSelectedRow].section]]];
+        
+        [self updateContentCell];
+    }
+}
+
 
 @end

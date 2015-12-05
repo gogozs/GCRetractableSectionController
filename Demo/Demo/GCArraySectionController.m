@@ -21,6 +21,7 @@
 - (id)initWithArray:(NSArray *)array viewController:(UIViewController *)givenViewController {
     if ((self = [super initWithViewController:givenViewController])) {
         self.content = array;
+        self.contentCellRetractable = YES;
     }
     return self;
 }
@@ -34,11 +35,6 @@
 
 - (NSString *)titleContentForRow:(NSUInteger)row {
     return [self.content objectAtIndex:row];
-}
-
-- (void)didSelectContentCellAtRow:(NSUInteger)row {
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]
-                                  animated:YES];
 }
 
 - (void)dealloc {

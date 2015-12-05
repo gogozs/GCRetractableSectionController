@@ -8,7 +8,31 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GCRetractableSectionController : NSObject
+@class GCRetractableSectionController;
+
+@protocol GCRetractableSectionDataSource <NSObject>
+
+@required
+@property (nonatomic, copy, readonly) NSString* title;
+@property (nonatomic, readonly) NSUInteger contentNumberOfRow;
+- (NSString*) titleContentForRow:(NSUInteger) row;
+
+@optional
+- (UITableViewCell*) titleCell;
+- (UITableViewCell*) contentCellForRow:(NSUInteger) row;
+
+@end
+
+@protocol GCRetractableSectionDelegate <NSObject>
+
+@optional
+- (void) didSelectCellAtRow:(NSUInteger) row;
+- (void) didSelectContentCellAtRow:(NSUInteger) row;
+- (void) didSelectTitleCell;
+
+@end
+
+@interface GCRetractableSectionController : NSObject <GCRetractableSectionDataSource, GCRetractableSectionDelegate>
 
 @property (nonatomic, assign, getter = isOpen) BOOL open;
 
@@ -25,20 +49,8 @@
 @property (nonatomic, assign) UIColor* titleAlternativeTextColor; //nil by default, dark blue
 @property (nonatomic, assign) UITableViewRowAnimation rowAnimation; //Animation to insert/remove cells, UITableViewRowAnimationTop by default
 
-//Must be subclassed to work properly
-@property (nonatomic, copy, readonly) NSString* title;
-@property (nonatomic, readonly) NSUInteger contentNumberOfRow;
-- (NSString*) titleContentForRow:(NSUInteger) row;
-
-//Can be subclassed for more control
-- (UITableViewCell*) titleCell;
-- (UITableViewCell*) contentCellForRow:(NSUInteger) row;
-
-//Respond to cell selection
-- (void) didSelectCellAtRow:(NSUInteger) row;
-- (void) didSelectTitleCell;
-- (void) didSelectContentCellAtRow:(NSUInteger) row;
-
+// Behavior
+@property (nonatomic, getter=isContentCellRetractable) BOOL contentCellRetractable;
 //Reserved for subclasses
 @property (nonatomic, readonly) UIViewController *viewController;
 @property (nonatomic, readonly) UITableView *tableView;
