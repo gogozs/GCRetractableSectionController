@@ -11,14 +11,6 @@
 		B022826E13612C85000975CF /* GCEmptySectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B022826A13612C85000975CF /* GCEmptySectionController.m */; };
 		B022826F13612C85000975CF /* GCSimpleSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B022826C13612C85000975CF /* GCSimpleSectionController.m */; };
 		B022829513612FBC000975CF /* GCRetractableSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B022828B13612FBC000975CF /* GCRetractableSectionController.m */; };
-		B022829613612FBC000975CF /* DownAccessory.png in Resources */ = {isa = PBXBuildFile; fileRef = B022828D13612FBC000975CF /* DownAccessory.png */; };
-		B022829713612FBC000975CF /* DownAccessory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B022828E13612FBC000975CF /* DownAccessory@2x.png */; };
-		B022829813612FBC000975CF /* DownAccessoryWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = B022828F13612FBC000975CF /* DownAccessoryWhite.png */; };
-		B022829913612FBC000975CF /* DownAccessoryWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B022829013612FBC000975CF /* DownAccessoryWhite@2x.png */; };
-		B022829A13612FBC000975CF /* UpAccessory.png in Resources */ = {isa = PBXBuildFile; fileRef = B022829113612FBC000975CF /* UpAccessory.png */; };
-		B022829B13612FBC000975CF /* UpAccessory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B022829213612FBC000975CF /* UpAccessory@2x.png */; };
-		B022829C13612FBC000975CF /* UpAccessoryWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = B022829313612FBC000975CF /* UpAccessoryWhite.png */; };
-		B022829D13612FBC000975CF /* UpAccessoryWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B022829413612FBC000975CF /* UpAccessoryWhite@2x.png */; };
 		B02282A613613237000975CF /* GCArraySectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B02282A513613237000975CF /* GCArraySectionController.m */; };
 		B0854CF516CD942300B28B39 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0854CF416CD942300B28B39 /* Default-568h@2x.png */; };
 		B09DF5B2136126E100E04146 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DF5B1136126E100E04146 /* UIKit.framework */; };
@@ -30,6 +22,7 @@
 		B09DF5C5136126E100E04146 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09DF5C3136126E100E04146 /* MainWindow.xib */; };
 		B09DF5C8136126E100E04146 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B09DF5C7136126E100E04146 /* RootViewController.m */; };
 		B09DF5CB136126E100E04146 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09DF5C9136126E100E04146 /* RootViewController.xib */; };
+		E41D8DB41C12D05C00890CAB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E41D8DB31C12D05C00890CAB /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,14 +34,6 @@
 		B022826C13612C85000975CF /* GCSimpleSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCSimpleSectionController.m; path = Demo/GCSimpleSectionController.m; sourceTree = SOURCE_ROOT; };
 		B022828A13612FBC000975CF /* GCRetractableSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCRetractableSectionController.h; sourceTree = "<group>"; };
 		B022828B13612FBC000975CF /* GCRetractableSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCRetractableSectionController.m; sourceTree = "<group>"; };
-		B022828D13612FBC000975CF /* DownAccessory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DownAccessory.png; sourceTree = "<group>"; };
-		B022828E13612FBC000975CF /* DownAccessory@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DownAccessory@2x.png"; sourceTree = "<group>"; };
-		B022828F13612FBC000975CF /* DownAccessoryWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DownAccessoryWhite.png; sourceTree = "<group>"; };
-		B022829013612FBC000975CF /* DownAccessoryWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DownAccessoryWhite@2x.png"; sourceTree = "<group>"; };
-		B022829113612FBC000975CF /* UpAccessory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UpAccessory.png; sourceTree = "<group>"; };
-		B022829213612FBC000975CF /* UpAccessory@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UpAccessory@2x.png"; sourceTree = "<group>"; };
-		B022829313612FBC000975CF /* UpAccessoryWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UpAccessoryWhite.png; sourceTree = "<group>"; };
-		B022829413612FBC000975CF /* UpAccessoryWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UpAccessoryWhite@2x.png"; sourceTree = "<group>"; };
 		B02282A413613237000975CF /* GCArraySectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCArraySectionController.h; path = Demo/GCArraySectionController.h; sourceTree = SOURCE_ROOT; };
 		B02282A513613237000975CF /* GCArraySectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCArraySectionController.m; path = Demo/GCArraySectionController.m; sourceTree = SOURCE_ROOT; };
 		B0854CF416CD942300B28B39 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -66,6 +51,7 @@
 		B09DF5C6136126E100E04146 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		B09DF5C7136126E100E04146 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		B09DF5CA136126E100E04146 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RootViewController.xib; sourceTree = "<group>"; };
+		E41D8DB31C12D05C00890CAB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,25 +89,10 @@
 			children = (
 				B022828A13612FBC000975CF /* GCRetractableSectionController.h */,
 				B022828B13612FBC000975CF /* GCRetractableSectionController.m */,
-				B022828C13612FBC000975CF /* Images */,
+				E41D8DB31C12D05C00890CAB /* Images.xcassets */,
 			);
 			name = GCRetractableSectionController;
 			path = ../GCRetractableSectionController;
-			sourceTree = "<group>";
-		};
-		B022828C13612FBC000975CF /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				B022828D13612FBC000975CF /* DownAccessory.png */,
-				B022828E13612FBC000975CF /* DownAccessory@2x.png */,
-				B022828F13612FBC000975CF /* DownAccessoryWhite.png */,
-				B022829013612FBC000975CF /* DownAccessoryWhite@2x.png */,
-				B022829113612FBC000975CF /* UpAccessory.png */,
-				B022829213612FBC000975CF /* UpAccessory@2x.png */,
-				B022829313612FBC000975CF /* UpAccessoryWhite.png */,
-				B022829413612FBC000975CF /* UpAccessoryWhite@2x.png */,
-			);
-			path = Images;
 			sourceTree = "<group>";
 		};
 		B09DF5A2136126E100E04146 = {
@@ -233,14 +204,7 @@
 				B09DF5BC136126E100E04146 /* InfoPlist.strings in Resources */,
 				B09DF5C5136126E100E04146 /* MainWindow.xib in Resources */,
 				B09DF5CB136126E100E04146 /* RootViewController.xib in Resources */,
-				B022829613612FBC000975CF /* DownAccessory.png in Resources */,
-				B022829713612FBC000975CF /* DownAccessory@2x.png in Resources */,
-				B022829813612FBC000975CF /* DownAccessoryWhite.png in Resources */,
-				B022829913612FBC000975CF /* DownAccessoryWhite@2x.png in Resources */,
-				B022829A13612FBC000975CF /* UpAccessory.png in Resources */,
-				B022829B13612FBC000975CF /* UpAccessory@2x.png in Resources */,
-				B022829C13612FBC000975CF /* UpAccessoryWhite.png in Resources */,
-				B022829D13612FBC000975CF /* UpAccessoryWhite@2x.png in Resources */,
+				E41D8DB41C12D05C00890CAB /* Images.xcassets in Resources */,
 				B0854CF516CD942300B28B39 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
