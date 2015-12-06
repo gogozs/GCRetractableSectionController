@@ -17,9 +17,4 @@
     return YES;
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
-
 @end

@@ -151,20 +151,24 @@
 
 #pragma mark - GCRetractableSectionDataDelegate
 - (void) didSelectCellAtRow:(NSUInteger)row {
-	if (row == 0) [self didSelectTitleCell];
-	else [self didSelectContentCellAtRow:row - 1];
+	if (row == 0) [self privateDidSelectTitleCell];
+	else [self privateDidSelectContentCellAtRow:row - 1];
 }
 
-- (void) didSelectTitleCell {
+- (void) privateDidSelectTitleCell {
 	self.open = !self.open;
     if (self.contentNumberOfRow != 0) {
         [self setAccessoryViewOnCell:[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]]];
     }
 	
     [self updateContentCell];
+    
+    if ([self.delegate respondsToSelector:@selector(didSelectTitleCell)]) {
+        [self.delegate didSelectTitleCell];
+    }
 }
 
-- (void) didSelectContentCellAtRow:(NSUInteger)row {
+- (void) privateDidSelectContentCellAtRow:(NSUInteger)row {
     if (self.isContentCellRetractable) {
         self.open = !self.open;
         [self setAccessoryViewOnCell:[self.tableView cellForRowAtIndexPath:
@@ -172,6 +176,11 @@
         
         [self updateContentCell];
     }
+    
+    if ([self.delegate respondsToSelector:@selector(didSelectContentCellAtRow:)]) {
+        [self.delegate didSelectContentCellAtRow:row];
+    }
+         
 }
 
 

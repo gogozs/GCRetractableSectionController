@@ -40,8 +40,6 @@
 - (void)dealloc {
     self.content = nil;
     self.title = nil;
-    
-    [super dealloc];
 }
 
 @end

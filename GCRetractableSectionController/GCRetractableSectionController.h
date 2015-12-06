@@ -26,14 +26,14 @@
 @protocol GCRetractableSectionDelegate <NSObject>
 
 @optional
-- (void) didSelectCellAtRow:(NSUInteger) row;
-- (void) didSelectContentCellAtRow:(NSUInteger) row;
 - (void) didSelectTitleCell;
+- (void) didSelectContentCellAtRow:(NSUInteger) row;
 
 @end
 
 @interface GCRetractableSectionController : NSObject <GCRetractableSectionDataSource, GCRetractableSectionDelegate>
 
+@property (nonatomic, weak) id <GCRetractableSectionDelegate> delegate;
 @property (nonatomic, assign, getter = isOpen) BOOL open;
 
 - (id) initWithViewController:(UIViewController*) givenViewController;
@@ -56,4 +56,5 @@
 @property (nonatomic, readonly) UIViewController *viewController;
 @property (nonatomic, readonly) UITableView *tableView;
 
+- (void) didSelectCellAtRow:(NSUInteger) row;
 @end

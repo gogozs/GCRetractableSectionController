@@ -82,9 +82,4 @@
     return _content;
 }
 
-- (void)dealloc {
-    
-    [super dealloc];
-}
-
 @end

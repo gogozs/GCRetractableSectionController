@@ -57,8 +57,6 @@
 - (void)dealloc
 {
     self.retractableControllers = nil;
-    
-    [super dealloc];
 }
 
 @end
