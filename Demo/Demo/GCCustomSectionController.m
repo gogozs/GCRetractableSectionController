@@ -61,7 +61,6 @@
         contentCell.backgroundColor = [UIColor whiteColor];
     }
     else if (row == 1) {
-        contentCell.accessoryView = [[[UISwitch alloc] init] autorelease];
         contentCell.backgroundColor = [UIColor whiteColor];
     }
     else if (row == 2) {
@@ -84,7 +83,6 @@
 }
 
 - (void)dealloc {
-    [_content release];
     
     [super dealloc];
 }

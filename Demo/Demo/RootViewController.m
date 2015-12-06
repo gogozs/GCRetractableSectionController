@@ -32,15 +32,11 @@
     arrayController.title = NSLocalizedString(@"Content of an array",);
     GCCustomSectionController* customController = [[GCCustomSectionController alloc] initWithViewController:self];
     GCEmptySectionController* emptyController = [[GCEmptySectionController alloc] initWithViewController:self];
-    self.retractableControllers = [NSArray arrayWithObjects:simpleController, arrayController, customController, emptyController, nil];
-    [simpleController release];
-    [arrayController release];
-    [customController release];
-    [emptyController release];
+    self.retractableControllers = [NSArray arrayWithObjects:simpleController, arrayController, customController, emptyController,nil];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return self.retractableControllers.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

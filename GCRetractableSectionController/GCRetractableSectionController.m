@@ -7,6 +7,7 @@
 //
 
 #import "GCRetractableSectionController.h"
+#import "SZRetractableAccessoryView.h"
 
 @interface GCRetractableSectionController ()
 
@@ -36,6 +37,7 @@
 	return self;
 }
 
+
 #pragma mark - Accessors
 - (UITableView*) tableView {
 	return [self.viewController performSelector:@selector(tableView)];
@@ -55,32 +57,18 @@
 
 #pragma mark - Private Methods
 - (void) setAccessoryViewOnCell:(UITableViewCell*) cell {
-	NSString* path = nil;
 	if (self.open) {
-		path = @"UpAccessory";
         if (self.titleAlternativeTextColor == nil) cell.textLabel.textColor =  [UIColor colorWithRed:0.191 green:0.264 blue:0.446 alpha:1.000];
         else cell.textLabel.textColor = self.titleAlternativeTextColor;
 	}	
 	else {
-		path = @"DownAccessory";
 		cell.textLabel.textColor = (self.titleTextColor == nil ? [UIColor blackColor] : self.titleTextColor);
 	}
 	
-	UIImage* accessoryImage = [UIImage imageNamed:path];
-	UIImage* whiteAccessoryImage = [UIImage imageNamed:[[path stringByDeletingPathExtension] stringByAppendingString:@"White"]];
-	
-	UIImageView* imageView;
-	if (cell.accessoryView != nil) {
-		imageView = (UIImageView*) cell.accessoryView;
-		imageView.image = (self.useOnlyWhiteImages ? whiteAccessoryImage : accessoryImage);
-		imageView.highlightedImage = whiteAccessoryImage;
+	if (cell.accessoryView == nil) {
+        cell.accessoryView = [[SZRetractableAccessoryView alloc] initWithFrame:CGRectMake(0, 0, 24, 12)];
     }
-	else {
-		imageView = [[UIImageView alloc] initWithImage:(self.useOnlyWhiteImages ? whiteAccessoryImage : accessoryImage)];
-		imageView.highlightedImage = whiteAccessoryImage;
-		cell.accessoryView = imageView;
-		[imageView release];
-	}
+    [(SZRetractableAccessoryView *)cell.accessoryView updateWithState:self.open];
 }
 
 - (void)updateContentCell
@@ -99,7 +87,6 @@
 	
 	if (self.open) [self.tableView insertRowsAtIndexPaths:rowToInsert withRowAnimation:self.rowAnimation];
 	else [self.tableView deleteRowsAtIndexPaths:rowToInsert withRowAnimation:self.rowAnimation];
-	[rowToInsert release];
 	
 	[self.tableView endUpdates];
 	
@@ -129,12 +116,11 @@
 	
 	UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:titleCellIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:titleCellIdentifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:titleCellIdentifier];
 	}
 	
 	cell.textLabel.text = self.title;
 	if (self.contentNumberOfRow != 0) {
-		cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%i items",), self.contentNumberOfRow];
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         [self setAccessoryViewOnCell:cell];
 	}
@@ -153,7 +139,7 @@
 	
 	UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:contentCellIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:contentCellIdentifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:contentCellIdentifier];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 	
