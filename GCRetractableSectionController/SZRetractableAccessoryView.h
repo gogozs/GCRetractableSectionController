@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, SZAccessoryViewStyle) {
+    SZAccessoryViewStyleBottom,
+    SZAccessoryViewStyleLeft
+};
+
 @interface SZRetractableAccessoryView : UIImageView
+
+@property (nonatomic) SZAccessoryViewStyle accessoryViewStyle; // accessoryView arrow direction, left or bottom
 
 - (void)updateWithState: (BOOL)open;
 @end

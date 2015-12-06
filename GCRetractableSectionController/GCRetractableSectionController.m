@@ -66,7 +66,8 @@
 	}
 	
 	if (cell.accessoryView == nil) {
-        cell.accessoryView = [[SZRetractableAccessoryView alloc] initWithFrame:CGRectMake(0, 0, 24, 12)];
+        cell.accessoryView = [[SZRetractableAccessoryView alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+        [(SZRetractableAccessoryView *)cell.accessoryView setAccessoryViewStyle:SZAccessoryViewStyleBottom];
     }
     [(SZRetractableAccessoryView *)cell.accessoryView updateWithState:self.open];
 }

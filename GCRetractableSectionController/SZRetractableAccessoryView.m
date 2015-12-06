@@ -24,6 +24,7 @@
     if (self) {
         [self setImage:[UIImage imageNamed:@"accessory"]];
         self.open = NO;
+        self.accessoryViewStyle = SZAccessoryViewStyleBottom;
     }
     
     return self;
@@ -31,19 +32,41 @@
 
 - (void)opened
 {
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.3];
+    switch (self.accessoryViewStyle) {
+        case SZAccessoryViewStyleBottom: {
+            [self accessoryViewAnimationWithAngle:M_PI];
+            
+            break;
+        }
+        case SZAccessoryViewStyleLeft: {
+            [self accessoryViewAnimationWithAngle:-M_PI_2];
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
     
-    CGAffineTransform transform = self.layer.affineTransform;
-    transform = CGAffineTransformRotate(transform, M_PI);
-    self.layer.affineTransform = transform;
-    
-    [UIView commitAnimations];
 }
 
 - (void)closed
 {
-    [self opened];
+    switch (self.accessoryViewStyle) {
+        case SZAccessoryViewStyleBottom: {
+            [self accessoryViewAnimationWithAngle:M_PI];
+            
+            break;
+        }
+        case SZAccessoryViewStyleLeft: {
+            [self accessoryViewAnimationWithAngle:M_PI_2];
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
 }
 
 - (void)updateWithState: (BOOL)open
@@ -58,4 +81,25 @@
     }
 }
 
+#pragma mark - Accessors
+- (void)setAccessoryViewStyle:(SZAccessoryViewStyle)accessoryViewStyle
+{
+    if (accessoryViewStyle == SZAccessoryViewStyleLeft) {
+        _accessoryViewStyle = SZAccessoryViewStyleLeft;
+        [self accessoryViewAnimationWithAngle:M_PI_2];
+    }
+}
+
+#pragma mark - Private Methods
+- (void)accessoryViewAnimationWithAngle: (CGFloat)angle
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.3];
+    
+    CGAffineTransform transform = self.layer.affineTransform;
+    transform = CGAffineTransformRotate(transform, angle);
+    self.layer.affineTransform = transform;
+    
+    [UIView commitAnimations];
+}
 @end

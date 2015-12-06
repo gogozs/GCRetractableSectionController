@@ -49,6 +49,7 @@
 @property (nonatomic, assign) UIColor* titleAlternativeTextColor; //nil by default, dark blue
 @property (nonatomic, assign) UITableViewRowAnimation rowAnimation; //Animation to insert/remove cells, UITableViewRowAnimationTop by default
 
+
 // Behavior
 @property (nonatomic, getter=isContentCellRetractable) BOOL contentCellRetractable;
 //Reserved for subclasses
