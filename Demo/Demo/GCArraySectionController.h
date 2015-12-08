@@ -16,6 +16,6 @@
 
 @property (nonatomic, copy, readwrite) NSString* title;
 
-- (id)initWithArray:(NSArray*) array viewController:(UIViewController *)givenViewController;
 
+- (id) initWithArray:(NSArray *)array tableView:(UITableView*)view;
 @end

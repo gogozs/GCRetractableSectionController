@@ -25,13 +25,13 @@
     
     self.title = NSLocalizedString(@"Demo",);
     
-    GCSimpleSectionController* simpleController = [[GCSimpleSectionController alloc] initWithViewController:self];
+    GCSimpleSectionController* simpleController = [[GCSimpleSectionController alloc] initWithView:self.tableView];
     GCArraySectionController* arrayController = [[GCArraySectionController alloc]
                                                  initWithArray:[NSArray arrayWithObjects:@"This", @"content", @"is", @"in", @"an", @"array", nil] 
-                                                 viewController:self];
+                                                 tableView:self.tableView];
     arrayController.title = NSLocalizedString(@"Content of an array",);
-    GCCustomSectionController* customController = [[GCCustomSectionController alloc] initWithViewController:self];
-    GCEmptySectionController* emptyController = [[GCEmptySectionController alloc] initWithViewController:self];
+    GCCustomSectionController* customController = [[GCCustomSectionController alloc] initWithView:self.tableView];
+    GCEmptySectionController* emptyController = [[GCEmptySectionController alloc] initWithView:self.tableView];
     self.retractableControllers = [NSArray arrayWithObjects:simpleController, arrayController, customController, emptyController,nil];
 }
 

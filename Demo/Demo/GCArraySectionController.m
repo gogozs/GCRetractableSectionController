@@ -18,8 +18,8 @@
 
 @synthesize content, title;
 
-- (id)initWithArray:(NSArray *)array viewController:(UIViewController *)givenViewController {
-    if ((self = [super initWithViewController:givenViewController])) {
+- (id) initWithArray:(NSArray *)array tableView:(UITableView*)view{
+    if ((self = [super initWithView:(UITableView*)view])) {
         self.content = array;
         self.contentCellRetractable = YES;
     }
