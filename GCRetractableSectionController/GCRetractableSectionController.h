@@ -19,9 +19,9 @@
 - (NSString*) titleContentForRow:(NSUInteger) row;
 
 @optional
-- (UITableViewCell*) titleCell;
-- (UITableViewCell*) contentCellForRow:(NSUInteger) row;
-
+- (UITableViewCell *)titleCell;
+- (UITableViewCell *)contentCellForRow:(NSUInteger) row;
+- (UITableViewCell *)bottomCell;
 @end
 
 @protocol GCRetractableSectionDelegate <NSObject>
@@ -42,6 +42,7 @@
 //Used by the UITableView's dataSource
 - (UITableViewCell*) cellForRow:(NSUInteger) row;
 @property (nonatomic, readonly) NSUInteger numberOfRow;
+@property (nonatomic, getter=hasBottomCell)BOOL addBottomCell;
 
 //Customize appearance
 @property (nonatomic, assign) UIColor* titleTextColor; //nil by default, black text

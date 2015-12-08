@@ -48,9 +48,22 @@
 - (UITableViewCell *) cellForRow:(NSUInteger)row {
 	UITableViewCell* cell = nil;
 	
-	if (row == 0) cell = [self titleCell];
-	else cell = [self contentCellForRow:row - 1];
-	
+    if (row == 0) {
+     cell = [self titleCell];
+    } else {
+        if (self.isOpen) {
+            if (row == [self contentNumberOfRow] + 1){ // bottom cell
+                cell = [self bottomCell];
+            } else {
+                 cell = [self contentCellForRow:row - 1];
+            }
+        } else {
+            if (row == 1) {
+                cell = [self bottomCell];
+            }
+        }
+    }
+        
 	return cell;
 }
 
@@ -89,7 +102,17 @@
 
 #pragma mark - GCRetractableSectionDataSource
 - (NSUInteger) numberOfRow {
-    return (self.open) ? self.contentNumberOfRow + 1 : 1;
+    NSUInteger result = 0;
+    if (self.hasBottomCell) {
+        result += 1;
+    }
+    if (self.isOpen) {
+        result += self.contentNumberOfRow + 1;
+    } else {
+        result += 1;
+    }
+    
+    return result;
 }
 
 - (NSUInteger) contentNumberOfRow {
@@ -121,6 +144,18 @@
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryView = nil;
         cell.textLabel.textColor = [UIColor blackColor];
+	}
+	
+	return cell;
+}
+
+- (UITableViewCell *) bottomCell {
+	NSString* titleCellIdentifier = [NSStringFromClass([self class]) stringByAppendingString:@"bottom"];
+	
+	UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:titleCellIdentifier];
+	if (cell == nil) {
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:titleCellIdentifier];
+    	cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	
 	return cell;

@@ -22,6 +22,7 @@
     if ((self = [super initWithTableView:(UITableView*)view])) {
         self.content = array;
         self.contentCellRetractable = YES;
+        self.addBottomCell = YES;
     }
     return self;
 }
@@ -42,4 +43,11 @@
     self.title = nil;
 }
 
+- (UITableViewCell *)bottomCell
+{
+    UITableViewCell *cell = [super bottomCell];
+    cell.textLabel.text = @"BottomCell";
+    
+    return cell;
+}
 @end
