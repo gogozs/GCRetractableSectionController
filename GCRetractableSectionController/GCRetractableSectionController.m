@@ -7,11 +7,11 @@
 //
 
 #import "GCRetractableSectionController.h"
-#import "SZRetractableAccessoryView.h"
 
 @interface GCRetractableSectionController ()
 
 @property (nonatomic, assign) UIViewController *viewController;
+@property (nonatomic) UITableView *privateTableView;
 
 - (void) setAccessoryViewOnCell:(UITableViewCell*) cell;
 
@@ -20,27 +20,28 @@
 @implementation GCRetractableSectionController
 
 #pragma mark - Initialisation
-- (id) initWithViewController:(UIViewController*) givenViewController {
+- (id) initWithView:(UITableView*)view
+{
 	if ((self = [super init])) {
-        if (![givenViewController respondsToSelector:@selector(tableView)]) {
-            //The view controller MUST have a tableView proprety
-            [NSException raise:@"Wrong view controller" 
-                        format:@"The passed view controller to GCRetractableSectionController must respond to the tableView proprety"];
-        }
-        
-		self.viewController = givenViewController;
+        self.tableView = view;
 		self.open = NO;
         self.useOnlyWhiteImages = NO;
         self.rowAnimation = UITableViewRowAnimationTop;
         self.contentCellRetractable = NO;
+        self.accessoryViewStyle = SZAccessoryViewStyleLeft;
 	}
-	return self;
+    
+    return self;
 }
-
 
 #pragma mark - Accessors
 - (UITableView*) tableView {
-	return [self.viewController performSelector:@selector(tableView)];
+    return _privateTableView;
+}
+
+- (void)setTableView:(UITableView *)tableView
+{
+    _privateTableView = tableView;
 }
 
 #pragma mark - UITableViewDataSource
@@ -57,17 +58,9 @@
 
 #pragma mark - Private Methods
 - (void) setAccessoryViewOnCell:(UITableViewCell*) cell {
-	if (self.open) {
-        if (self.titleAlternativeTextColor == nil) cell.textLabel.textColor =  [UIColor colorWithRed:0.191 green:0.264 blue:0.446 alpha:1.000];
-        else cell.textLabel.textColor = self.titleAlternativeTextColor;
-	}	
-	else {
-		cell.textLabel.textColor = (self.titleTextColor == nil ? [UIColor blackColor] : self.titleTextColor);
-	}
-	
 	if (cell.accessoryView == nil) {
-        cell.accessoryView = [[SZRetractableAccessoryView alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
-        [(SZRetractableAccessoryView *)cell.accessoryView setAccessoryViewStyle:SZAccessoryViewStyleBottom];
+        cell.accessoryView = [[SZRetractableAccessoryView alloc] initWithFrame:CGRectMake(0, 0, 16, 16)];
+        [(SZRetractableAccessoryView *)cell.accessoryView setAccessoryViewStyle:self.accessoryViewStyle];
     }
     [(SZRetractableAccessoryView *)cell.accessoryView updateWithState:self.open];
 }
@@ -105,11 +98,11 @@
 }
 
 - (NSString*) title {
-	return NSLocalizedString(@"No title",);
+	return NSLocalizedString(@"",);
 }
 
 - (NSString*) titleContentForRow:(NSUInteger) row {
-	return NSLocalizedString(@"No title",);
+	return NSLocalizedString(@"",);
 }
 
 - (UITableViewCell *) titleCell {
@@ -126,7 +119,6 @@
         [self setAccessoryViewOnCell:cell];
 	}
 	else {
-		cell.detailTextLabel.text = NSLocalizedString(@"No item",);
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryView = nil;
         cell.textLabel.textColor = [UIColor blackColor];
@@ -141,7 +133,7 @@
 	UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:contentCellIdentifier];
 	if (cell == nil) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:contentCellIdentifier];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		cell.accessoryType = UITableViewCellAccessoryNone;
 	}
 	
 	cell.textLabel.text = [self titleContentForRow:row];
@@ -151,8 +143,11 @@
 
 #pragma mark - GCRetractableSectionDataDelegate
 - (void) didSelectCellAtRow:(NSUInteger)row {
-	if (row == 0) [self privateDidSelectTitleCell];
-	else [self privateDidSelectContentCellAtRow:row - 1];
+    if (row == 0) {
+     [self privateDidSelectTitleCell];
+    } else {
+     [self privateDidSelectContentCellAtRow:row - 1];
+    }
 }
 
 - (void) privateDidSelectTitleCell {
@@ -160,7 +155,6 @@
     if (self.contentNumberOfRow != 0) {
         [self setAccessoryViewOnCell:[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]]];
     }
-	
     [self updateContentCell];
     
     if ([self.delegate respondsToSelector:@selector(didSelectTitleCell)]) {
@@ -173,15 +167,12 @@
         self.open = !self.open;
         [self setAccessoryViewOnCell:[self.tableView cellForRowAtIndexPath:
                                       [NSIndexPath indexPathForRow:0 inSection: [self.tableView indexPathForSelectedRow].section]]];
-        
         [self updateContentCell];
     }
     
     if ([self.delegate respondsToSelector:@selector(didSelectContentCellAtRow:)]) {
         [self.delegate didSelectContentCellAtRow:row];
     }
-         
 }
-
 
 @end

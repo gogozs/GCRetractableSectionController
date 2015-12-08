@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SZRetractableAccessoryView.h"
 
 @class GCRetractableSectionController;
 
@@ -36,7 +37,7 @@
 @property (nonatomic, weak) id <GCRetractableSectionDelegate> delegate;
 @property (nonatomic, assign, getter = isOpen) BOOL open;
 
-- (id) initWithViewController:(UIViewController*) givenViewController;
+- (id) initWithView:(UITableView*)view;
 
 //Used by the UITableView's dataSource
 - (UITableViewCell*) cellForRow:(NSUInteger) row;
@@ -46,9 +47,8 @@
  //Use only white images if the cells background is dark
 @property (nonatomic, assign, getter = isOnlyUsingWhiteImages) BOOL useOnlyWhiteImages;
 @property (nonatomic, assign) UIColor* titleTextColor; //nil by default, black text
-@property (nonatomic, assign) UIColor* titleAlternativeTextColor; //nil by default, dark blue
 @property (nonatomic, assign) UITableViewRowAnimation rowAnimation; //Animation to insert/remove cells, UITableViewRowAnimationTop by default
-
+@property (nonatomic) SZAccessoryViewStyle accessoryViewStyle;
 
 // Behavior
 @property (nonatomic, getter=isContentCellRetractable) BOOL contentCellRetractable;
