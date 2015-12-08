@@ -37,15 +37,13 @@
 @property (nonatomic, weak) id <GCRetractableSectionDelegate> delegate;
 @property (nonatomic, assign, getter = isOpen) BOOL open;
 
-- (id) initWithView:(UITableView*)view;
+- (id) initWithTableView:(UITableView*)view;
 
 //Used by the UITableView's dataSource
 - (UITableViewCell*) cellForRow:(NSUInteger) row;
 @property (nonatomic, readonly) NSUInteger numberOfRow;
 
 //Customize appearance
- //Use only white images if the cells background is dark
-@property (nonatomic, assign, getter = isOnlyUsingWhiteImages) BOOL useOnlyWhiteImages;
 @property (nonatomic, assign) UIColor* titleTextColor; //nil by default, black text
 @property (nonatomic, assign) UITableViewRowAnimation rowAnimation; //Animation to insert/remove cells, UITableViewRowAnimationTop by default
 @property (nonatomic) SZAccessoryViewStyle accessoryViewStyle;
@@ -53,7 +51,6 @@
 // Behavior
 @property (nonatomic, getter=isContentCellRetractable) BOOL contentCellRetractable;
 //Reserved for subclasses
-@property (nonatomic, readonly) UIViewController *viewController;
 @property (nonatomic, readonly) UITableView *tableView;
 
 - (void) didSelectCellAtRow:(NSUInteger) row;

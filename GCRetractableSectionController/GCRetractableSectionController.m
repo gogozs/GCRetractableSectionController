@@ -10,7 +10,6 @@
 
 @interface GCRetractableSectionController ()
 
-@property (nonatomic, assign) UIViewController *viewController;
 @property (nonatomic) UITableView *privateTableView;
 
 - (void) setAccessoryViewOnCell:(UITableViewCell*) cell;
@@ -20,12 +19,12 @@
 @implementation GCRetractableSectionController
 
 #pragma mark - Initialisation
-- (id) initWithView:(UITableView*)view
+// Designated initializer
+- (id) initWithTableView:(UITableView*)view
 {
 	if ((self = [super init])) {
         self.tableView = view;
 		self.open = NO;
-        self.useOnlyWhiteImages = NO;
         self.rowAnimation = UITableViewRowAnimationTop;
         self.contentCellRetractable = NO;
         self.accessoryViewStyle = SZAccessoryViewStyleLeft;

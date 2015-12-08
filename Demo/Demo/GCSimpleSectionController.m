@@ -16,6 +16,14 @@
 
 @implementation GCSimpleSectionController
 
+- (id) initWithTableView:(UITableView*)view
+{
+    if (self = [super initWithTableView:view]) {
+        self.delegate = self;
+    }
+    
+    return self;
+}
 #pragma mark -
 #pragma mark Subclass
 
